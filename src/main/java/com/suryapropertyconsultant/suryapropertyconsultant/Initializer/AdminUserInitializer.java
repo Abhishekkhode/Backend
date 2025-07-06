@@ -9,6 +9,7 @@ import com.suryapropertyconsultant.suryapropertyconsultant.Repository.AdminUserR
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+//import org.h2.security.SHA256;
 
 @Component
 public class AdminUserInitializer implements CommandLineRunner {

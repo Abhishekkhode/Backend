@@ -1,35 +1,36 @@
 package com.suryapropertyconsultant.suryapropertyconsultant.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "properties")
-@Data
+@Data // Generates getters, setters, equals, hashCode, toString
+@NoArgsConstructor // Generates a no-argument constructor
+@AllArgsConstructor // Generates a constructor with all fields
+@Document(collection = "properties") // For MongoDB
 public class Property {
 
-    @Id
-    private String id; // MongoDB uses String _id by default
+    @Id // Use @Id for MongoDB document ID
+    private String id; // MongoDB typically uses String for IDs
 
     private String title;
-    private String location;
     private Double price;
-    private String status; // for-sale, for-rent, sold
+    private String location;
     private int bedrooms;
     private int bathrooms;
-    private int area;
-    private int parking;
+    private Double area;
+    private String type;
+    private String status;
     private String description;
-    private List<String> features; // a list of strings instead of comma-separated
-    private int yearBuilt;
-    private String possession;
 
-    private String agentName;
-    private String agentPhone;
-    private String agentEmail;
-    private String agentPhoto;
-
+    private List<String> features;
+    private Integer yearBuilt;
+    private Integer parking;
+    private boolean featured;
     private List<String> images;
+    private String possession;
 }

@@ -1,5 +1,6 @@
     package com.suryapropertyconsultant.suryapropertyconsultant.Security;
 
+    import com.mongodb.ServerCursor;
     import com.suryapropertyconsultant.suryapropertyconsultant.Service.AdminUserDetailsService; // Import your AdminUserDetailsService
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.context.annotation.Bean;
@@ -26,10 +27,12 @@
     @EnableMethodSecurity
     public class SecurityConfig {
 
-        @Autowired
-        private JwtAuthFilter jwtAuthFilter; // Your JWT filter
-        @Autowired
-        private AdminUserDetailsService adminUserDetailsService; // Inject your custom UserDetailsService
+        private final JwtAuthFilter jwtAuthFilter; // Your JWT filter
+        private final AdminUserDetailsService adminUserDetailsService; // Inject your custom UserDetailsService
+        public SecurityConfig(JwtAuthFilter jwtAuthFilter,AdminUserDetailsService adminUserDetailsService ){
+            this.jwtAuthFilter = jwtAuthFilter;
+            this.adminUserDetailsService = adminUserDetailsService;
+        }
 
         // Defines the security filter chain for HTTP requests
         @Bean
@@ -43,6 +46,7 @@
     //                        .requestMatchers("/api/properties").permitAll()
     //                        .requestMatchers("/api/auth").permitAll()// Added validate to permitAll for easier testing of token validation
                                     .requestMatchers("/api/auth/**").permitAll()
+                                    .requestMatchers("/api/support/contact").permitAll()
                                     .requestMatchers("/api/support/**").permitAll()
                                     .requestMatchers("/api/auth/login", "/api/auth/validate").permitAll()
 //                                    .requestMatchers("/api/**").authenticated()
