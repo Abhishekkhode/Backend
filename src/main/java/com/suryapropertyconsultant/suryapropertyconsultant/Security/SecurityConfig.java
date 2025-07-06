@@ -45,6 +45,9 @@
     //                        .requestMatchers("/api/auth/validate").permitAll()
     //                        .requestMatchers("/api/properties").permitAll()
     //                        .requestMatchers("/api/auth").permitAll()// Added validate to permitAll for easier testing of token validation
+                                    .requestMatchers("/actuator/health").permitAll()
+                                    .requestMatchers("/actuator").permitAll()
+                                    .requestMatchers("/health").permitAll()
                                     .requestMatchers("/api/auth/**").permitAll()
                                     .requestMatchers("/api/support/contact").permitAll()
                                     .requestMatchers("/api/support/**").permitAll()

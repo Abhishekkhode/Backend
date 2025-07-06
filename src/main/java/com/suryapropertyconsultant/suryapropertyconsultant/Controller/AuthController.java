@@ -1,7 +1,7 @@
 //package com.suryapropertyconsultant.suryapropertyconsultant.Controller;
 //
 //import com.suryapropertyconsultant.suryapropertyconsultant.Entity.AdminUser;
-//import com.suryapropertyconsultant.suryapropertyconsultant.Entity.AdminUserDTO;
+//import com.suryapropertyconsultant.suryapropertyconsultant.Dto.AdminUserDTO;
 //import com.suryapropertyconsultant.suryapropertyconsultant.Entity.Property;
 //import com.suryapropertyconsultant.suryapropertyconsultant.Repository.AdminUserRepository;
 //import com.suryapropertyconsultant.suryapropertyconsultant.Repository.PropertyRepo;
@@ -255,6 +255,7 @@
 package com.suryapropertyconsultant.suryapropertyconsultant.Controller;
 
 import com.suryapropertyconsultant.suryapropertyconsultant.Entity.AdminUser;
+import com.suryapropertyconsultant.suryapropertyconsultant.Dto.AdminUserDTO;
 import com.suryapropertyconsultant.suryapropertyconsultant.Service.AdminService;
 import com.suryapropertyconsultant.suryapropertyconsultant.Service.AuthService;
 import com.suryapropertyconsultant.suryapropertyconsultant.Service.CustomUserDetails;
@@ -272,6 +273,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -311,7 +313,11 @@ public class AuthController {
         Optional<AdminUser> user = adminService.findByUserName(email);
         if (user.isPresent()) {
             System.out.println("Getting All Admins : ");
-            return new ResponseEntity<>(adminService.getall(), HttpStatus.OK);
+            List<AdminUserDTO> dtos = adminService.getall()
+                    .stream()
+                    .map(AdminUserDTO::new)
+                    .toList();
+            return new ResponseEntity<>(dtos, HttpStatus.OK);
         }
         // This line should ideally not be reached if @PreAuthorize works correctly,
         // but it's a fallback for clarity.
@@ -330,12 +336,16 @@ public class AuthController {
     // For production, consider adding @PreAuthorize("hasRole('ADMIN')")
     // or making this part of a secure initial setup process.
     @PostMapping("/register") // Changed mapping to be more explicit for registration
-    public ResponseEntity<?> createAdmin(@RequestBody AdminUser adminUser) {
+    public ResponseEntity<?> createAdmin(@RequestBody AdminUserDTO adminUser) {
         // Ensure role is set to ADMIN for new admin users
         // This logic should ideally be handled in the service layer for consistency
-        adminUser.setRole("ADMIN");
-        try {
-            authService.register(adminUser); // Assuming authService.register handles password encoding
+        try{
+        AdminUser user = new AdminUser();
+        user.setEmail(adminUser.getEmail());
+        user.setPassword(adminUser.getPassword());
+        user.setRole("ADMIN");
+        AdminUser createdUser = authService.register(user);// Assuming authService.register handles password encoding
+        AdminUserDTO responseDTO = new AdminUserDTO(createdUser);
             return ResponseEntity.status(HttpStatus.CREATED).body("Admin Created successfully.");
         } catch (Exception e) {
             // Handle specific exceptions like duplicate email if your service throws them
@@ -350,7 +360,7 @@ public class AuthController {
      * @return A ResponseEntity with the JWT token and success message, or an error message.
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AdminUser loginRequest) {
+    public ResponseEntity<?> login(@RequestBody AdminUserDTO loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

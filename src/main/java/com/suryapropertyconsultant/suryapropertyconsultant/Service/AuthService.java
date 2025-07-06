@@ -30,10 +30,11 @@ public class AuthService {
 
     // --- Registration Logic ---
     // Ensure you use this method to save new admin users with encoded passwords
-    public void register(AdminUser adminUser) {
+    public AdminUser register(AdminUser adminUser) {
         // Encode password before saving
         adminUser.setPassword(passwordEncoder.encode(adminUser.getPassword()));
         adminUserRepository.save(adminUser); // Save to MongoDB
+        return adminUser;
     }
 
     // --- JWT Generation (after successful authentication) ---
