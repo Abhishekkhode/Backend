@@ -136,7 +136,7 @@ public class SupportController {
                     "info", result
             ));
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of(
                     "status", "error",
                     "info", "Exception: " + e.getMessage()

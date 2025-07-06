@@ -28,9 +28,6 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
-		<sonar.projectKey>suryapropertyconsultant</sonar.projectKey>
-		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.token>squ_d9a42f0a042e17065d84984ffc9331f7337862c2</sonar.token>
 	</properties>
     <dependencies>
 		<dependency>
@@ -86,11 +83,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.suryapropertyconsultant</groupId>-->
-<!--			<artifactId>suryapropertyconsultant</artifactId>-->
-<!--			<version>0.0.1-SNAPSHOT</version>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>jakarta.platform</groupId>
 			<artifactId>jakarta.jakartaee-core-api</artifactId>
@@ -119,15 +111,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-        <!--		<dependency>-->
-<!--			<groupId>com.suryapropertyconsultant</groupId>-->
-<!--			<artifactId>suryapropertyconsultant</artifactId>-->
-<!--			<version>0.0.1-SNAPSHOT</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
 
 
 	</dependencies>
