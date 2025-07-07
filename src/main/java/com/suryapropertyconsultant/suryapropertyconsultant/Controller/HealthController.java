@@ -1,6 +1,7 @@
 package com.suryapropertyconsultant.suryapropertyconsultant.Controller;
 
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,4 +13,9 @@ public class HealthController {
     public String healthCheck() {
         return "OK";
     }
+
+        @GetMapping("/")
+        public ResponseEntity<String> root() {
+            return ResponseEntity.ok("API is running. Visit /api for more.");
+        }
 }

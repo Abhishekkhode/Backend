@@ -1,5 +1,6 @@
 package com.suryapropertyconsultant.suryapropertyconsultant;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -12,5 +13,11 @@ public class SuryapropertyconsultantApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SuryapropertyconsultantApplication.class, args);
 	}
+
+	@PostConstruct
+	public void logPort() {
+		System.out.println(">>> Listening on port: " + System.getenv("PORT"));
+	}
+
 
 }
