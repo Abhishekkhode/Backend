@@ -6,6 +6,7 @@ import com.suryapropertyconsultant.suryapropertyconsultant.Service.AgentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,7 @@ public class AgentController {
 //        Agent createdAgent = agentService.createAgent(agentDto);
 //        return ResponseEntity.status(201).body(createdAgent);
 //    }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<?> createAgent(@Valid @RequestBody AgentRequestDTO agentDto, BindingResult result) {
         if (result.hasErrors()) {
@@ -60,6 +62,7 @@ public class AgentController {
 
 
     // ✅ UPDATE agent
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Agent> updateAgent(@PathVariable String id,
                                              @Valid @RequestBody AgentRequestDTO agentDto) {
@@ -73,6 +76,7 @@ public class AgentController {
     }
 
     // ✅ DELETE agent
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAgent(@PathVariable String id) {
         Optional<Agent> existing = agentService.getAgentById(id);

@@ -51,6 +51,8 @@
                                     .requestMatchers("/api/auth/**").permitAll()
                                     .requestMatchers("/api/support/contact").permitAll()
                                     .requestMatchers("/api/support/**").permitAll()
+                                    .requestMatchers("/api/agents").permitAll()
+
                                     .requestMatchers("/api/auth/login", "/api/auth/validate").permitAll()
 //                                    .requestMatchers("/api/**").authenticated()
 

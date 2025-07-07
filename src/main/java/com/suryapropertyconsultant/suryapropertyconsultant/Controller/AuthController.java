@@ -335,6 +335,7 @@ public class AuthController {
      */
     // For production, consider adding @PreAuthorize("hasRole('ADMIN')")
     // or making this part of a secure initial setup process.
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/register") // Changed mapping to be more explicit for registration
     public ResponseEntity<?> createAdmin(@RequestBody AdminUserDTO adminUser) {
         // Ensure role is set to ADMIN for new admin users

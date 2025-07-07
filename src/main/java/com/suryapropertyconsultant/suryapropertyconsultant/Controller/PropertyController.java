@@ -63,6 +63,7 @@ import com.suryapropertyconsultant.suryapropertyconsultant.Service.PropertyServi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -93,12 +94,15 @@ public class PropertyController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Property> createProperty(@Valid @RequestBody PropertyRequestDTO propertyDto) {
         Property createdProperty = propertyService.createProperty(propertyDto);
         return new ResponseEntity<>(createdProperty, HttpStatus.CREATED);
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Property> updateProperty(@PathVariable String id, @Valid @RequestBody PropertyRequestDTO propertyDto) {
         try {
@@ -109,6 +113,8 @@ public class PropertyController {
         }
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProperty(@PathVariable String id) {
         try {
